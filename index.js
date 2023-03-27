@@ -11,8 +11,12 @@ dotenv.config();
 app.use(bodyParser.json())
 app.use(express.json())
 require("./db/conn.js")
+
+app.use(require("./router/Upload.js"))
+const Video = require("./model/Video.js")
 app.use(require("./router/auth.js"))
 const User=require("./model/users.js")
+
 
 const PORT = 8080;
 const middleware=(req,res,next)=>{
@@ -20,6 +24,7 @@ const middleware=(req,res,next)=>{
     next()
 }
 app.listen(PORT, (err) => {
+
      if (err) console.log(err);
     console.log(`App listen on ${PORT}`)
 })
