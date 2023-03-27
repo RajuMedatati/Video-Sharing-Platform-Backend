@@ -85,7 +85,7 @@ router.post("/signin",async(req,res)=>{
 
 router.post("/logout",auth,async (req,res)=>{
     try{
-       
+   
         res.clearCookie("jwtoken");
         req.user.tokens=[];
         await req.user.save();
