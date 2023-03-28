@@ -1,7 +1,5 @@
 const express = require("express");
 require("../db/conn.js");
-const User=require("../model/users.js");
-const auth=require("../middleware/auth.js")
 const Video = require("../model/Video.js");
 const auth=require("../middleware/auth.js");
 const User=require("../model/users.js");
