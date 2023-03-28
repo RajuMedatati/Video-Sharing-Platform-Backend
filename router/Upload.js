@@ -32,10 +32,14 @@ router.post('/upload', auth, async (req, res) => {
 
 
 router.get("/home", async (req,res)=>{
-
-    const data = await Video.find();
-   res.status(200).json(data);
+try {
+    const data = await Video.aggregate([{ $sample: { size: 40 } }]);
+    res.status(200).json(data);
+  } catch (err) {
+    res.send("error")
+  }
 })
+
 
 router.post("/myvideos",auth, async (req,res)=>{
     const userid = req.user._id;
