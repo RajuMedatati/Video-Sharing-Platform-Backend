@@ -47,7 +47,6 @@ router.post("/signin",async(req,res)=>{
             return res.status(400).json({error:"please filled the data"})
         }
         const userLogin= await User.findOne({email:email});
-        console.log(userLogin)
 
         if(userLogin){
             const isMatch=await bcrypt.compare(password,userLogin.password)
