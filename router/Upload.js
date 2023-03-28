@@ -1,12 +1,16 @@
 const express = require("express");
 require("../db/conn.js");
+const User=require("../model/users.js");
+const auth=require("../middleware/auth.js")
 const Video = require("../model/Video.js");
 const auth=require("../middleware/auth.js");
 const User=require("../model/users.js");
 const router = express.Router();
 
 router.post('/upload', auth, async (req, res) => {
+
     const userid = req.user._id;
+
 
     const {tittle,desc,imgUrl,videoUrl,category,visibility} = req.body;
     const data = new Video({
@@ -44,3 +48,6 @@ router.post("/myvideos",auth, async (req,res)=>{
 
 
 module.exports = router;
+
+
+

@@ -7,9 +7,7 @@ const User=require("../model/users.js");
 const router=express.Router();
 
 
-router.get("/",(req,res)=>{
-    res.send("waw work krrha h ")
-})
+
 
 router.post("/register",async(req,res)=>{
     const {name,email,phone,profession,password,cpassword}=req.body
@@ -39,14 +37,15 @@ router.post("/register",async(req,res)=>{
 
 router.post("/signin",async(req,res)=>{
     
-    //  res.send(req.body)
+  
     try{
-        // console.log(req.body)
+        
         const {email,password}=req.body;
         if(!email || !password){
             return res.status(400).json({error:"please filled the data"})
         }
         const userLogin= await User.findOne({email:email});
+
 
         if(userLogin){
             const isMatch=await bcrypt.compare(password,userLogin.password)
@@ -83,8 +82,9 @@ router.post("/signin",async(req,res)=>{
 
 
 router.post("/logout",auth,async (req,res)=>{
+
     try{
-   
+
         res.clearCookie("jwtoken");
         req.user.tokens=[];
         await req.user.save();
