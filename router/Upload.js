@@ -26,6 +26,21 @@ router.post('/upload', auth, async (req, res) => {
         res.status(404).send("error")
     }
 
-});
+}); 
+
+
+router.get("/home", async (req,res)=>{
+
+    const data = await Video.find();
+   res.status(200).json(data);
+})
+
+router.post("/myvideos",auth, async (req,res)=>{
+    const userid = req.user._id;
+    const data = await Video.find({userid:userid});
+   res.status(200).json(data);
+})
+
+
 
 module.exports = router;
