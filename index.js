@@ -13,6 +13,8 @@ app.use(express.json())
 require("./db/conn.js")
 
 app.use(require("./router/Upload.js"))
+app.use(require("./router/Search.js"))
+
 const Video = require("./model/Video.js")
 app.use(require("./router/auth.js"))
 const User=require("./model/users.js")
