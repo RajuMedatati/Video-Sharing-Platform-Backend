@@ -45,7 +45,7 @@ router.post("/signin",async(req,res)=>{
             return res.status(400).json({error:"please filled the data"})
         }
         const userLogin= await User.findOne({email:email});
-       
+
 
         if(userLogin){
             const isMatch=await bcrypt.compare(password,userLogin.password)
@@ -84,7 +84,7 @@ router.post("/signin",async(req,res)=>{
 router.post("/logout",auth,async (req,res)=>{
 
     try{
-        
+
         res.clearCookie("jwtoken");
         req.user.tokens=[];
         await req.user.save();

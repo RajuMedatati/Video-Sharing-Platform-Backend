@@ -3,11 +3,14 @@ require("../db/conn.js");
 const User=require("../model/users.js");
 const auth=require("../middleware/auth.js")
 const Video = require("../model/Video.js");
+const auth=require("../middleware/auth.js");
+const User=require("../model/users.js");
 const router = express.Router();
 
 router.post('/upload', auth, async (req, res) => {
 
-    const userid = req.user._id
+    const userid = req.user._id;
+
 
     const {tittle,desc,imgUrl,videoUrl,category,visibility} = req.body;
     const data = new Video({
@@ -27,7 +30,22 @@ router.post('/upload', auth, async (req, res) => {
         res.status(404).send("error")
     }
 
-});
+}); 
+
+
+router.get("/home", async (req,res)=>{
+
+    const data = await Video.find();
+   res.status(200).json(data);
+})
+
+router.post("/myvideos",auth, async (req,res)=>{
+    const userid = req.user._id;
+    const data = await Video.find({userid:userid});
+   res.status(200).json(data);
+})
+
+
 
 module.exports = router;
 
