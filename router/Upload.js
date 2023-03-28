@@ -1,8 +1,12 @@
 const express = require("express");
 require("../db/conn.js");
+
+const User=require("../model/users.js");
+
+
 const Video = require("../model/Video.js");
 const auth=require("../middleware/auth.js");
-const User=require("../model/users.js");
+
 const router = express.Router();
 
 router.post('/upload', auth, async (req, res) => {
@@ -32,12 +36,14 @@ router.post('/upload', auth, async (req, res) => {
 
 
 router.get("/home", async (req,res)=>{
+
 try {
     const data = await Video.aggregate([{ $sample: { size: 40 } }]);
     res.status(200).json(data);
   } catch (err) {
     res.send("error")
   }
+
 })
 
 
